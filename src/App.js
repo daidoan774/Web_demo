@@ -1,24 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+
+// Pages
+import Home from "./pages/Home";
+import Courses from "./pages/Courses";
+import Course from "./pages/Course";
+import AdminCourses from "./pages/AdminCourses";
+import AdminUsers from "./pages/AdminUsers";
+
+// Layout
+import AppLayout from "./layouts/AppLayout";
+import AdminLayout from "./layouts/AdminLayout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        {/* Route Admin */}
+        <Route path="/admin">
+          <AdminLayout>
+            <Switch>
+              <Redirect exact from="/admin" to="/admin/courses" />
+              <Route path="/admin/courses">
+                <AdminCourses />
+              </Route>
+              <Route path="/admin/users">
+                <AdminUsers />
+              </Route>
+            </Switch>
+          </AdminLayout>
+        </Route>
+
+        {/* Route Main */}
+        <Route path="/">
+          <AppLayout>
+            <Switch>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/courses/:category">
+                <Courses />
+              </Route>
+              <Route path="/course/:courseId">
+                <Course />
+              </Route>
+            </Switch>
+          </AppLayout>
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
