@@ -10,6 +10,7 @@ import AdminUsers from "./pages/AdminUsers";
 // Layout
 import AppLayout from "./layouts/AppLayout";
 import AdminLayout from "./layouts/AdminLayout";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -42,6 +43,9 @@ function App() {
               </Route>
               <Route path="/course/:courseId">
                 <Course />
+              </Route>
+              <Route path="/login">
+                <LoginPage />
               </Route>
             </Switch>
           </AppLayout>
